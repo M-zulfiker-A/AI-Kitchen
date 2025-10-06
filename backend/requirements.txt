@@ -4,3 +4,7 @@ python-multipart
 PyPDF2
 sentence-transformers
 openai
+langchain-openai
+langchain-community
+python-dotenv
+chromadb
