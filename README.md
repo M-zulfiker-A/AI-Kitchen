@@ -2,16 +2,6 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A comprehensive AI-powered kitchen assistant that helps with recipe recommendations, meal planning, and cooking assistance using state-of-the-art language models and computer vision.
-
-## 🚀 Features
-
-- **Smart Recipe Recommendations** - Get personalized recipe suggestions based on your dietary preferences and available ingredients
-- **Interactive Cooking Assistant** - Step-by-step cooking guidance with voice commands
-- **Meal Planning** - Generate weekly meal plans tailored to your nutritional needs
-- **Ingredient Recognition** - Upload images of ingredients to get recipe suggestions
-- **Dietary Customization** - Filter recipes by dietary restrictions (vegan, gluten-free, etc.)
-
 ## 🏗️ Project Structure
 
 ```
