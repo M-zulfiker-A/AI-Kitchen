@@ -10,12 +10,6 @@ type Message = {
   timestamp: Date;
 };
 
-type PDFFile = {
-  name: string;
-  size: number;
-  lastModified: number;
-};
-
 export function PDFChat() {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
@@ -151,20 +145,20 @@ export function PDFChat() {
   };
 
   return (
-    <div className="relative min-h-screen max-w-7xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-      <div className="p-4 border-b border-gray-200 bg-white sticky top-0 z-10">
-        <h2 className="text-xl font-semibold text-gray-800">PDF Chat</h2>
-        <p className="text-sm text-gray-500">Upload a PDF and ask questions about it</p>
+    <div className="relative min-h-screen max-w-7xl mx-auto bg-card rounded-xl shadow-xl overflow-hidden border border-border">
+      <div className="p-4 border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
+        <h2 className="text-xl font-semibold">PDF Chat</h2>
+        <p className="text-sm text-muted-foreground">Upload a PDF and ask questions about it</p>
       </div>
 
       <div className="flex flex-1">
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50" style={{ paddingBottom: '80px' }}>
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-background/50" style={{ paddingBottom: '80px' }}>
           {messages.length === 0 ? (
             <div className="flex items-center justify-center h-full">
-              <div className="text-center text-gray-500 p-6 bg-white rounded-lg shadow-sm max-w-md mx-auto">
-                <FileText className="w-10 h-10 mx-auto mb-3 text-gray-400" />
-                <p>Upload a PDF and start asking questions about it</p>
-                <p className="text-sm text-gray-400 mt-1">Supported formats: .pdf</p>
+              <div className="text-center text-muted-foreground p-8 bg-card rounded-xl shadow-lg max-w-md mx-auto border border-border">
+                <FileText className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                <p className="text-lg mb-2">Upload a PDF and start asking questions about it</p>
+                <p className="text-sm opacity-70">Supported formats: .pdf</p>
               </div>
             </div>
           ) : (
@@ -175,15 +169,15 @@ export function PDFChat() {
                   className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[80%] rounded-lg p-3 ${
+                    className={`max-w-[80%] rounded-2xl p-4 ${
                       message.isUser
-                        ? 'bg-blue-500 text-white rounded-tr-none'
-                        : 'bg-white text-gray-800 rounded-tl-none border border-gray-200'
-                    } shadow-sm`}
+                        ? 'bg-primary text-primary-foreground rounded-tr-sm'
+                        : 'bg-card text-card-foreground rounded-tl-sm border border-border'
+                    } shadow-md`}
                   >
                     <div className="break-words">
                       <p className="whitespace-pre-wrap">{message.content}</p>
-                      <p className={`text-xs mt-1 ${message.isUser ? 'text-blue-100' : 'text-gray-500'}`}>
+                      <p className={`text-xs mt-2 ${message.isUser ? 'opacity-80' : 'text-muted-foreground'}`}>
                         {message.timestamp.toLocaleTimeString()}
                       </p>
                     </div>
@@ -195,21 +189,21 @@ export function PDFChat() {
           
           {(sendMessage.isPending || uploadFile.isPending || isStreaming) && (
             <div className="flex justify-start">
-              <div className="bg-white text-gray-800 rounded-lg p-3 rounded-tl-none shadow-sm border border-gray-200">
+              <div className="bg-card text-card-foreground rounded-2xl p-4 rounded-tl-sm shadow-md border border-border">
                 <div className="flex space-x-2">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
+                  <div className="w-2 h-2 bg-primary rounded-full animate-bounce" />
+                  <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                  <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
                 </div>
               </div>
             </div>
           )}
         </div>
 
-        <div className="w-80 p-4 bg-gray-50 border-l" style={{ paddingBottom: '80px' }}>
-          <label className={`flex flex-col items-center px-6 py-8 rounded-lg border-2 border-dashed ${isUploading ? 'border-gray-300' : 'border-blue-300 hover:border-blue-400 cursor-pointer'} bg-white transition-colors`}>
-            <Upload className={`w-10 h-10 mb-3 ${isUploading ? 'text-gray-400' : 'text-blue-500'}`} />
-            <span className={`text-sm ${isUploading ? 'text-gray-500' : 'text-gray-600'}`}>
+        <div className="w-80 p-4 bg-background/50 border-l border-border" style={{ paddingBottom: '80px' }}>
+          <label className={`flex flex-col items-center px-6 py-8 rounded-xl border-2 border-dashed ${isUploading ? 'border-border' : 'border-primary/50 hover:border-primary cursor-pointer'} bg-card transition-all hover:shadow-lg`}>
+            <Upload className={`w-12 h-12 mb-3 ${isUploading ? 'text-muted-foreground' : 'text-primary'}`} />
+            <span className={`text-sm font-medium ${isUploading ? 'text-muted-foreground' : ''}`}>
               {isUploading ? 'Uploading...' : (file ? 'Change PDF file' : 'Click to upload a PDF')}
             </span>
             <input 
@@ -222,11 +216,11 @@ export function PDFChat() {
           </label>
           
           {file && (
-            <div className="mt-3 flex items-center text-sm bg-white p-3 rounded-lg border border-gray-200">
-              <FileText className="w-5 h-5 mr-2 text-blue-500 flex-shrink-0" />
+            <div className="mt-4 flex items-center text-sm bg-card p-4 rounded-xl border border-border shadow-md">
+              <FileText className="w-5 h-5 mr-3 text-primary flex-shrink-0" />
               <div className="min-w-0">
-                <p className="font-medium text-gray-800 truncate">{file.name}</p>
-                <p className="text-xs text-gray-500">
+                <p className="font-medium truncate">{file.name}</p>
+                <p className="text-xs text-muted-foreground mt-1">
                   {(file.size / 1024).toFixed(2)} KB • {file.lastModified ? new Date(file.lastModified).toLocaleDateString() : ''}
                 </p>
               </div>
@@ -235,22 +229,22 @@ export function PDFChat() {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="absolute bottom-0 left-0 p-4 border-t border-gray-200 bg-white" style={{ right: '320px' }}>
+      <form onSubmit={handleSubmit} className="absolute bottom-0 left-0 p-4 border-t border-border bg-card/50 backdrop-blur-sm" style={{ right: '320px' }}>
         <div className="flex space-x-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask a question about the PDF..."
-            className="flex-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="flex-1 p-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-muted-foreground"
             disabled={!file || isUploading || sendMessage.isPending || isStreaming}
           />
           <button
             type="submit"
             disabled={!input.trim() || !file || isUploading || sendMessage.isPending || isStreaming}
-            className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="px-4 py-3 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all shadow-md hover:shadow-lg"
           >
-            <Send className="w-5 h-5" />
+            <Send className="w-5 h-5 text-primary-foreground" />
           </button>
         </div>
       </form>
